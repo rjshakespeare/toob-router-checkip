@@ -103,4 +103,16 @@ module.exports = class Client {
         return (await this.makeRequest([packet])).reply.actions[0].callbacks[0].parameters.value['Interface']['IPv4Addresses'][0]['IPAddress'];
     }
 
+    async logout() {
+
+        const packet = loadPacket('logout');
+        await this.makeRequest([packet]);
+
+        this.serverNonce = '';
+        this.sessionId = 0;
+        this.requestId = -1;
+
+        return true;
+    }
+
 }
